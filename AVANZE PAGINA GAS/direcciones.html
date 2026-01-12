@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+
+
+<html lang="es">
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Direcciones</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/estilo.css">
+</head>
+
+
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">IntoxiGas</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="carrito.html">
+                            Carrito <span id="contadorCarritoNav" class="badge bg-danger rounded-pill">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Administrar direcciones</h2>
+
+
+
+
+        <!-- FORMULARIO -->
+        <div class="card p-3 mb-4">
+            <input type="text" id="nombre" class="form-control mb-2" placeholder="Nombre del destinatario">
+            <input type="text" id="direccion" class="form-control mb-2" placeholder="Dirección">
+            <input type="text" id="comuna" class="form-control mb-2" placeholder="Comuna">
+
+            <button class="btn btn-primary w-100" onclick="guardarDireccion()">
+                Guardar dirección
+            </button>
+        </div>
+
+
+
+        <!-- LISTA -->
+        <ul class="list-group" id="listaDirecciones"></ul>
+    </div>
+
+
+
+
+    <script>
+        function guardarDireccion() {
+
+            let direcciones = JSON.parse(localStorage.getItem("direcciones")) || [];
+
+            let nueva = {
+                nombre: document.getElementById("nombre").value,
+                direccion: document.getElementById("direccion").value,
+                comuna: document.getElementById("comuna").value
+            };
+
+            direcciones.push(nueva);
+            localStorage.setItem("direcciones", JSON.stringify(direcciones));
+
+            mostrarDirecciones();
+
+            document.getElementById("nombre").value = "";
+            document.getElementById("direccion").value = "";
+            document.getElementById("comuna").value = "";
+        }
+
+
+
+
+
+
+        function mostrarDirecciones() {
+            let direcciones = JSON.parse(localStorage.getItem("direcciones")) || [];
+            let lista = document.getElementById("listaDirecciones");
+            lista.innerHTML = "";
+
+            direcciones.forEach((d, i) => {
+                lista.innerHTML += `
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <strong>${d.nombre}</strong><br>
+                    ${d.direccion}, ${d.comuna}
+                </div>
+                <button class="btn btn-success btn-sm" onclick="seleccionarDireccion(${i})">
+                    Usar
+                </button>
+            </li>
+        `;
+            });
+        }
+
+
+
+
+
+        function seleccionarDireccion(index) {
+            let direcciones = JSON.parse(localStorage.getItem("direcciones"));
+            localStorage.setItem("direccionSeleccionada", JSON.stringify(direcciones[index]));
+            window.location.href = "carrito.html";
+        }
+
+
+
+        mostrarDirecciones();
+
+
+    </script>
+
+</body>
+
+</html>

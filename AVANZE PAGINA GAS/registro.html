@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Registrarse - IntoxiGas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/estilo.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+
+
+
+<body class="bg-light">
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="card p-4 shadow">
+                    <h3 class="text-center mb-3 text-primary">📝 Crear Cuenta</h3>
+                    <p class="text-center text-muted">Únete a IntoxiGas</p>
+
+                    <div class="mb-3">
+                        <label>Nombre de Usuario</label>
+                        <input type="text" id="nuevoUsuario" class="form-control" placeholder="Ej: JuanPerez">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Contraseña</label>
+                        <input type="password" id="nuevaClave" class="form-control" placeholder="******">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Confirmar Contraseña</label>
+                        <input type="password" id="confirmarClave" class="form-control" placeholder="******">
+                    </div>
+
+                    <button class="btn btn-primary w-100 mb-3" onclick="registrarUsuario()">
+                        Registrarse
+                    </button>
+
+                    <div class="text-center">
+                        <a href="login.html">¿Ya tienes cuenta? Inicia sesión aquí</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function registrarUsuario() {
+            // Obtener lo que escribió la persona
+            let usuario = document.getElementById("nuevoUsuario").value;
+            let clave = document.getElementById("nuevaClave").value;
+            let confirmar = document.getElementById("confirmarClave").value;
+
+            if (usuario === "" || clave === "") {
+                Swal.fire("Error", "Debes completar todos los campos", "error");
+                return; // Detiene la función aquí
+            }
+
+            // Validar que las contraseñas sean iguales
+            if (clave !== confirmar) {
+                Swal.fire("Error", "Las contraseñas no coinciden", "error");
+                return;
+            }
+
+            // GUARDAR 
+            let listaUsuarios = JSON.parse(localStorage.getItem("listaUsuarios")) || [];
+
+            // Verificar si el usuario ya existe para no repetirlo
+            // Usamos un ciclo for simple para buscar
+            let existe = false;
+            for (let i = 0; i < listaUsuarios.length; i++) {
+                if (listaUsuarios[i].usuario === usuario) {
+                    existe = true;
+                    break;
+                }
+            }
+
+            if (existe) {
+                Swal.fire("Error", "Este usuario ya está registrado", "warning");
+            } else {
+                // Si no existe, lo agregamos a la lista
+                listaUsuarios.push({
+                    usuario: usuario,
+                    clave: clave
+                });
+
+                // Guardamos la lista actualizada en la memoria del navegador
+                localStorage.setItem("listaUsuarios", JSON.stringify(listaUsuarios));
+
+                // Mensaje y redirigir al login
+                Swal.fire({
+                    title: '¡Éxito!',
+                    text: 'Usuario creado correctamente',
+                    icon: 'success',
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(() => {
+                    window.location.href = "login.html";
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>

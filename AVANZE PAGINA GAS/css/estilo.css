@@ -1,0 +1,107 @@
+/* DEFINICIÓN DE VARIABLES */
+:root {
+    --color-principal: #ff6b00;
+    --color-secundario: #002f6c;
+    --color-fondo: #f4f6f9;
+    --color-texto: #333333;
+}
+
+body {
+    background-color: var(--color-fondo);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Fuente moderna */
+    color: var(--color-texto);
+}
+
+/* NAVBAR (BARRA DE NAVEGACIÓN) */
+.navbar {
+    background-color: var(--color-secundario) !important;
+    /* !important fuerza el cambio */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Sombrita elegante abajo */
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: var(--color-principal) !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- 3. BANNER (HERO SECTION) --- */
+.bg-primary {
+    background: linear-gradient(135deg, var(--color-secundario) 0%, #0056b3 100%) !important;
+    border-bottom: 5px solid var(--color-principal);
+    /* Línea naranja decorativa */
+}
+
+/* --- 4. TARJETAS DE PRODUCTOS (CARDS) --- */
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+/* EFECTO HOVER:*/
+.card:hover {
+    transform: translateY(-10px);
+    /* Mueve la tarjeta hacia arriba */
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+    /* Sombra más fuerte */
+    border-bottom: 4px solid var(--color-principal);
+}
+
+.card-img-top {
+    padding: 20px;
+    /* Espacio para que la imagen del gas no toque los bordes */
+    height: 250px;
+    /* Altura fija para que todas se vean iguales */
+    object-fit: contain;
+    /* La imagen se ajusta sin deformarse */
+}
+
+.card-title {
+    font-weight: bold;
+    color: var(--color-secundario);
+}
+
+.card-text {
+    font-size: 1.2rem;
+    color: var(--color-principal);
+    font-weight: bold;
+}
+
+/* --- 5. BOTONES --- */
+/* Cambiamos los botones azules por naranjas */
+.btn-primary {
+    background-color: var(--color-principal);
+    border-color: var(--color-principal);
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 50px;
+    /* Botones redonditos modernos */
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #e65100;
+    /* Naranja más oscuro al pasar el mouse */
+    border-color: #e65100;
+    transform: scale(1.05);
+    /* Crece un poquito */
+}
+
+/* Botón del carrito (Contador) */
+.nav-link span {
+    background-color: var(--color-principal);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 50%;
+    /* Círculo perfecto */
+    font-size: 0.8rem;
+    position: relative;
+    top: -2px;
+}
